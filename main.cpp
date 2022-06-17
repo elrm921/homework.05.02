@@ -6,208 +6,142 @@ class Figure {
             this->name = "Фигура";
             this->sides = 0;
         }
-        std::string get_name() {
-            return name;
+        void print() {
+            std::cout << name << "\n";
+            print_side_values();
+            print_angle_values();
         }
-        int count_sides() {
-            return sides;
-        }
-        virtual int* get_side_values() {
-            return dum;
-        }
-        virtual int* get_angle_values() {
-            return dum;
-        }
-
     protected:
+        Figure(std::string name, int sides) {
+            this->name = name;
+            this->sides = sides;
+        }
+        virtual void print_side_values() {}
+        virtual void print_angle_values() {}
+    private:
         std::string name;
         int sides;
-        int* dum;
 };
 
 class Triangle : public Figure {
     public:
-        Triangle() {
-            this->name = "Треугольник";
-            this->sides = 3;
-            this->side_vals[0] = 1;
-            this->side_vals[1] = 2;
-            this->side_vals[2] = 3;
-            this->angle_vals[0] = 40;
-            this->angle_vals[1] = 60;            
-            this->angle_vals[2] = 80;
+        Triangle() : Figure("Треугольник", 3) {
+            this->a = 1;
+            this->b = 2;
+            this->c = 3;
+            this->A = 40;
+            this->B = 60;            
+            this->C = 80;
         }
-        Triangle(int a, int b, int c, int A, int B, int C) {
-            this->name = "Треугольник";
-            this->sides = 3;
-            this->side_vals[0] = a;
-            this->side_vals[1] = b;
-            this->side_vals[2] = c;
-            this->angle_vals[0] = A;
-            this->angle_vals[1] = B;            
-            this->angle_vals[2] = C;
+        Triangle(int a, int b, int c, int A, int B, int C) : Figure("Треугольник", 3) {
+            this->a = a;
+            this->b = b;
+            this->c = c;
+            this->A = A;
+            this->B = B;            
+            this->C = C;
         }
-        int* get_side_values() {
-            return side_vals;
+        void print_side_values() {
+            std::cout << "a = " << a << " b = " << b << " c = " << c << "\n";
         }
-        int* get_angle_values() {
-            return angle_vals;
+        void print_angle_values() {
+            std::cout << "A = " << A << " B = " << B << " C = " << C << "\n";
         }
     protected:
-        int side_vals[3];
-        int angle_vals[3];
+        Triangle(std::string name, int a, int b, int c, int A, int B, int C) : Figure(name, 3) {
+            this->a = a;
+            this->b = b;
+            this->c = c;
+            this->A = A;
+            this->B = B;            
+            this->C = C;            
+        }
+    private:
+        int a, b, c;
+        int A, B, C;
 };
 
 class Quadrangle : public Figure {
     public:
-        Quadrangle() {
-            this->name = "Четырехугольник";
-            this->sides = 4;
-            this->side_vals[0] = 1;
-            this->side_vals[1] = 2;
-            this->side_vals[2] = 3;
-            this->side_vals[3] = 4;
-            this->angle_vals[0] = 20;
-            this->angle_vals[1] = 40;            
-            this->angle_vals[2] = 60;
-            this->angle_vals[3] = 80;
+        Quadrangle() : Figure("Четырехугольник", 4) {
+            this->a = 1;
+            this->b = 2;
+            this->c = 3;
+            this->d = 4;
+            this->A = 20;
+            this->B = 40;            
+            this->C = 60;
+            this->D = 80;
         }
-        Quadrangle(int a, int b, int c, int d, int A, int B, int C, int D) {
-            this->name = "Четырехугольник";
-            this->sides = 4;
-            this->side_vals[0] = a;
-            this->side_vals[1] = b;
-            this->side_vals[2] = c;
-            this->side_vals[3] = d;
-            this->angle_vals[0] = A;
-            this->angle_vals[1] = B;
-            this->angle_vals[2] = C;
-            this->angle_vals[3] = D;
+        Quadrangle(int a, int b, int c, int d, int A, int B, int C, int D) : Figure("Четырехугольник", 4) {
+            this->a = a;
+            this->b = b;
+            this->c = c;
+            this->d = d;
+            this->A = A;
+            this->B = B;
+            this->C = C;
+            this->D = D;
         }
-        int* get_side_values() {
-            return side_vals;
+        void print_side_values() {
+            std::cout << "a = " << a << " b = " << b << " c = " << c << " d = " << d << "\n";
         }
-        int* get_angle_values() {
-            return angle_vals;
+        void print_angle_values() {
+            std::cout << "A = " << A << " B = " << B << " C = " << C << " D = " << D << "\n";
         }
     protected:
-        int side_vals[4];
-        int angle_vals[4];
+        Quadrangle(std::string name, int a, int b, int c, int d, int A, int B, int C, int D) : Figure(name, 4) {
+            this->a = a;
+            this->b = b;
+            this->c = c;
+            this->d = d;
+            this->A = A;
+            this->B = B;
+            this->C = C;
+            this->D = D;
+        }
+    private:
+        int a, b, c, d;
+        int A, B, C, D;
 };
 
 class RightTriangle : public Triangle {
     public:
-        RightTriangle(int a, int b, int c, int A, int B) {
-            this->name = "Прямоугольный треугольник";
-            this->side_vals[0] = a;
-            this->side_vals[1] = b;
-            this->side_vals[2] = c;
-            this->angle_vals[0] = A;
-            this->angle_vals[1] = B;            
-            this->angle_vals[2] = 90;
-        }
+        RightTriangle(int a, int b, int c, int A, int B) : Triangle("Прямоугольный треугольник", a, b, c, A, B, 90) {}
 };
 
 class IsoscelesTriangle : public Triangle {
     public:
-        IsoscelesTriangle(int ac, int b, int AC, int B) {
-            this->name = "Равнобедренный треугольник";
-            this->side_vals[0] = ac;
-            this->side_vals[1] = b;
-            this->side_vals[2] = ac;
-            this->angle_vals[0] = AC;
-            this->angle_vals[1] = B;            
-            this->angle_vals[2] = AC;
-        }
+        IsoscelesTriangle(int ac, int b, int AC, int B) : Triangle("Равнобедренный треугольник", ac, b, ac, AC, B, AC) {}
 };
 
 class EquilateralTriangle : public Triangle {
     public:
-        EquilateralTriangle(int abc) {
-            this->name = "Равносторонний  треугольник";
-            this->side_vals[0] = abc;
-            this->side_vals[1] = abc;
-            this->side_vals[2] = abc;
-            this->angle_vals[0] = 60;
-            this->angle_vals[1] = 60;            
-            this->angle_vals[2] = 60;
-        }
+        EquilateralTriangle(int abc) : Triangle("Равносторонний  треугольник", abc, abc, abc, 60, 60, 60) {}
 };
 
 class Rectangle : public Quadrangle {
     public:
-        Rectangle(int ac, int bd) {
-            this->name = "Прямоугольник";
-            this->side_vals[0] = ac;
-            this->side_vals[1] = bd;
-            this->side_vals[2] = ac;
-            this->side_vals[3] = bd;
-            this->angle_vals[0] = 90;
-            this->angle_vals[1] = 90;
-            this->angle_vals[2] = 90;
-            this->angle_vals[3] = 90;
-        }
+        Rectangle(int ac, int bd) : Quadrangle("Прямоугольник", ac, bd, ac, bd, 90, 90, 90, 90) {}
 };
 
 class Square : public Quadrangle {
     public:
-        Square(int a) {
-            this->name = "Квадрат";
-            this->side_vals[0] = a;
-            this->side_vals[1] = a;
-            this->side_vals[2] = a;
-            this->side_vals[3] = a;
-            this->angle_vals[0] = 90;
-            this->angle_vals[1] = 90;
-            this->angle_vals[2] = 90;
-            this->angle_vals[3] = 90;        
-        }
+        Square(int a) : Quadrangle("Квадрат", a, a, a, a, 90, 90, 90, 90) {}
 };
 
 class Parallelogram : public Quadrangle {
     public:
-        Parallelogram(int ac, int bd, int AC, int BD) {
-            this->name = "Параллелограмм";
-            this->side_vals[0] = ac;
-            this->side_vals[1] = bd;
-            this->side_vals[2] = ac;
-            this->side_vals[3] = bd;
-            this->angle_vals[0] = AC;
-            this->angle_vals[1] = BD;
-            this->angle_vals[2] = AC;
-            this->angle_vals[3] = BD;
-        }
+        Parallelogram(int ac, int bd, int AC, int BD) : Quadrangle("Параллелограмм", ac, bd, ac, bd, AC, BD, AC, BD) {}
 };
 
 class Rhombus : public Quadrangle {
     public:
-        Rhombus(int a, int AC, int BD) {
-            this->name = "Ромб";
-            this->side_vals[0] = a;
-            this->side_vals[1] = a;
-            this->side_vals[2] = a;
-            this->side_vals[3] = a;
-            this->angle_vals[0] = AC;
-            this->angle_vals[1] = BD;
-            this->angle_vals[2] = AC;
-            this->angle_vals[3] = BD;
-        }
+        Rhombus(int a, int AC, int BD) : Quadrangle("Ромб", a, a, a, a, AC, BD, AC, BD) {}
 };
 
-void print_info(Figure &figure) {
-    int count_sides = figure.count_sides();
-    int* sides = figure.get_side_values();
-    int* angles = figure.get_angle_values();
-    std::cout << figure.get_name() << ":\n";
-
-    if (count_sides == 3) {
-        std::cout << "Стороны:" << " a=" << sides[0] << " b=" << sides[1] << " c=" << sides[2] << "\n";
-        std::cout << "Углы:" << " A=" << angles[0] << " B=" << angles[1] << " C=" << angles[2] << "\n";
-    }
-    if (count_sides == 4) {
-        std::cout << "Стороны:" << " a=" << sides[0] << " b=" << sides[1] << " c=" << sides[2] << " d=" << sides[3] << "\n";
-        std::cout << "Углы:" << " A=" << angles[0] << " B=" << angles[1] << " C=" << angles[2] << " D=" << angles[3] << "\n";
-    }
+void print(Figure &figure) {
+    figure.print();
 }
 
 int main() {
@@ -223,15 +157,15 @@ int main() {
     Parallelogram q3(1, 4, 60, 120);
     Rhombus q4(4, 60, 40);
 
-    print_info(t0);
-    print_info(q0);
-    print_info(t1);
-    print_info(t2);
-    print_info(t3);
-    print_info(q1);
-    print_info(q2);
-    print_info(q3);
-    print_info(q4);
+    print(t0);
+    print(q0);
+    print(t1);
+    print(t2);
+    print(t3);
+    print(q1);
+    print(q2);
+    print(q3);
+    print(q4);
 
     return 0;
 }
